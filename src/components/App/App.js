@@ -1,6 +1,7 @@
 import './App.css';
 import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { getRandomIndex } from '../../utilities.js';
 
 function App() {
   const [ wall, setWall ] = useState([]);
@@ -11,25 +12,46 @@ function App() {
   //const [ searchTerms, setSearchTerms ] = useState([]);
 
   const getIDs = async () => {
-    const idPath = 'https://collectionapi.metmuseum.org/public/collection/v1/search?q=sunflowers';
+    const idPath = await 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflowers';
     setError('');
 
     try {
       const response = await fetch(idPath);
       const responseIDs = await response.json();
-      setIDs(responseIDs);
+      setIDs(responseIDs.objectIDs);
+      // console.log(ids)
     } catch (error) {
       setError(error)
     }
   }
 
+  const getSingleArtPiece = async () => {
+    const randomIndex = await getRandomIndex(ids);
+    console.log(randomIndex);
+    const idPath = await `https://collectionapi.metmuseum.org/public/collection/v1/objects/${ids[randomIndex]}`;
+
+    try {
+      const response = await fetch(idPath);
+      const artPiece = await response.json();
+      setWall(wall => [...wall, artPiece]);
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+
   useEffect(() => {
     getIDs();
+    console.log(ids.objectIDs)
+    if (!ids.objectIDs) {
+      getSingleArtPiece();
+    }
   }, [])
 
   return (
     <div className="App">
-      {console.log(ids)}
+      {/* {Object.keys(ids).length && console.log(ids)} */}
+      {wall.length && console.log(wall)} 
     </div>
   );
 }
