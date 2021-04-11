@@ -4,54 +4,51 @@ import React, { useState, useEffect } from 'react';
 import { getRandomIndex } from '../../utilities.js';
 
 function App() {
-  const [ wall, setWall ] = useState([]);
-  const [ ids, setIDs ] = useState({});
-  const [ error, setError ] = useState('');
+  const [wall, setWall] = useState([]);
+  const [ids, setIDs] = useState([]);
+  const [error, setError] = useState('');
   // const [ artDetail, setArtDetail ] = useState({});
   // const [ favorites, setFavorites ] = useState([]);
   //const [ searchTerms, setSearchTerms ] = useState([]);
 
-  const getIDs = async () => {
-    const idPath = await 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflowers';
-    setError('');
+  const artIdSearch = fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflowers')
+    .then(response => response.json())
+    .catch(error => setError(error.message))
 
-    try {
-      const response = await fetch(idPath);
-      const responseIDs = await response.json();
-      setIDs(responseIDs.objectIDs);
-      // console.log(ids)
-    } catch (error) {
-      setError(error)
-    }
+
+  const getIDs = async () => {
+    const idMatch = await artIdSearch;
+    setError('');
+    setIDs(idMatch.objectIDs)
   }
 
+
   const getSingleArtPiece = async () => {
-    const randomIndex = await getRandomIndex(ids);
-    console.log(randomIndex);
-    const idPath = await `https://collectionapi.metmuseum.org/public/collection/v1/objects/${ids[randomIndex]}`;
+    const randomIndex = getRandomIndex(ids);
+    const itemStock = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${ids[randomIndex]}`)
+      .then(response => response.json());
 
     try {
-      const response = await fetch(idPath);
-      const artPiece = await response.json();
+      const artPiece = await itemStock;
       setWall(wall => [...wall, artPiece]);
     } catch (error) {
       setError(error)
     }
   }
 
+  useEffect(() => {
+    getIDs()
+  }, [])
 
   useEffect(() => {
-    getIDs();
-    console.log(ids.objectIDs)
-    if (!ids.objectIDs) {
-      getSingleArtPiece();
-    }
-  }, [])
+    ids && getSingleArtPiece();
+  }, [ids])
 
   return (
     <div className="App">
-      {/* {Object.keys(ids).length && console.log(ids)} */}
-      {wall.length && console.log(wall)} 
+      {/* {ids.length && console.log('IDs: ', ids)} */}
+      {/* {wall.length && console.log('WALL: ', wall)} */}
+      {wall.length > 1 && <img src={wall[1].primaryImageSmall} />}
     </div>
   );
 }
