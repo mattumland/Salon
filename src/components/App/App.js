@@ -1,7 +1,8 @@
-import './App.css';
+import './App.scss';
 import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { getRandomIndex } from '../../utilities.js';
+import Wall from '../Wall/Wall';
 
 function App() {
   const [wall, setWall] = useState([]);
@@ -48,7 +49,8 @@ function App() {
     <div className="App">
       {/* {ids.length && console.log('IDs: ', ids)} */}
       {/* {wall.length && console.log('WALL: ', wall)} */}
-      {wall.length > 1 && <img src={wall[1].primaryImageSmall} />}
+      {/*wall.length > 1 && <img src={wall[1].primaryImageSmall} />*/}
+      <Wall />
     </div>
   );
 }

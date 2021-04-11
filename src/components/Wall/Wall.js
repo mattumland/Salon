@@ -1,9 +1,12 @@
 import React from 'react';
 import './Wall.scss';
+import Artwork from '../Artwork/Artwork';
 
 const Wall = () => {
 
-  const artwork = [
+  // const salonTemplates = []; This will eventually contain multiple templates to choose from.
+
+  const artworks = [
     {objectID: 468350, primaryImageSmall: "https://images.metmuseum.org/CRDImages/md/web-large/DP154235.jpg"},
     {objectID: 206989, primaryImageSmall: "https://images.metmuseum.org/CRDImages/es/web-large/DT8910.jpg"},
     {objectID: 436102, primaryImageSmall: "https://images.metmuseum.org/CRDImages/ep/web-large/DP-1410-001.jpg"},
@@ -14,8 +17,22 @@ const Wall = () => {
     {objectID: 208554, primaryImageSmall: "https://images.metmuseum.org/CRDImages/es/web-large/DT4036.jpg"}
   ]
 
+  const artworksToDisplay = artworks.map((artwork, index) => {
+      //create an array of artwork using props
+      //eventually we will pass this using context API
+      //use index to create dynamic classNames that correspond to locations in the templates
+      <Artwork
+        wallLocation={`.div${index+1}`}
+        key={objectID}
+        id={objectID}
+        url={primaryImageSmall}
+      />
+  })
+
   return (
-      
+      <section className='salonTemplate'> 
+        {artworksToDisplay}
+      </section>
   )
 
 }
