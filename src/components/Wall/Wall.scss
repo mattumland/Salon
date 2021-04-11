@@ -1,10 +1,11 @@
 .salonTemplate {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, .5fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
 
   width: 75%;
-  // height: 500px;
+  height: 500px;
+  margin: 55px auto;
 }
