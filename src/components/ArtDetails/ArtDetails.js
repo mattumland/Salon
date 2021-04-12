@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './ArtDetails.scss';
 
-const ArtDetails = () => {
+const ArtDetails = ({ artPieceID }) => {
   const [ selectedArt, setSelectedArt ] = useState('');
 
     const getSingleArtPiece = async () => {
-      const singleArtURL = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/437329';
+      const singleArtURL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artPieceID}`;
 
       try {
         const response = await fetch(singleArtURL);
@@ -19,12 +19,11 @@ const ArtDetails = () => {
     useEffect(() => {
       getSingleArtPiece();
     }, [])
-
   return (
     <>
       <section className="art-details">
         {console.log(selectedArt)}
-        <img  src={selectedArt.primaryImage} alt={selectedArt.title}/>
+        <img className="details-image" src={selectedArt.primaryImage} alt={selectedArt.title}/>
         <aside>
           <h2>Featured Artifact:</h2>
           <h3>"{selectedArt.title}"</h3>
