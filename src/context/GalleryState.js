@@ -3,7 +3,7 @@ import GalleryContext from './gallery-context';
 
 const GalleryState = (props) => {
     return (
-        <GalleryContext.Provider value={{}}>
+        <GalleryContext.Provider value={{ [state, dispatch]}}>
             {props.children}
         </GalleryContext.Provider>
     );

@@ -1,5 +1,5 @@
 import './App.css';
-import { Route } from 'react-router-dom';
+//import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { shuffleItems } from '../../utilities.js';
 
@@ -10,8 +10,8 @@ function App() {
   // const [ artDetail, setArtDetail ] = useState({});
   // const [ favorites, setFavorites ] = useState([]);
   //const [ searchTerms, setSearchTerms ] = useState([]);
-
-  const artIdSearch = fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflowers')
+  const searchTerm = 'q=sun&q=moon'; // search terms that we made to state 
+  const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
     .then(response => response.json())
     .catch(error => setError(error.message))
 
@@ -24,10 +24,10 @@ function App() {
 
 
   const getSingleArtPiece = async (index) => {
-    const itemStock = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-      .then(response => response.json());
     try {
-      const artPiece = await itemStock;
+      const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
+      const response = await item;
+      const artPiece = await response.json();
       setWall(wall => [...wall, artPiece]);
     } catch (error) {
       setError(error)
@@ -48,8 +48,9 @@ function App() {
 
   return (
     <div className="App">Salon
-      {/* {ids.length && console.log('Rendering IDs: ', ids)}
-      {wall.length && console.log('WALL: ', wall)} */}
+    
+      {ids.length && console.log('Rendering IDs: ', ids)}
+      {wall.length && console.log('WALL: ', wall)}
       {wall.length && <img src={wall[0].primaryImageSmall} />}
       {wall[1] && <img src={wall[1].primaryImageSmall} />}
       {wall[2] && <img src={wall[2].primaryImageSmall} />}
