@@ -1,15 +1,40 @@
 * {
-  border: 1px solid red;
+  // border: 1px solid red;
+}
+
+.art-details {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
 }
 
 img {
   height: auto;
-  width: 40%;
+  width: 65%;
 }
 
-caption {
-  width: 30%;
+aside {
+  width: 25%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  text-align: center;
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 1050px) {
+  .art-details {
+    flex-direction: column;
+  }
+
+  img {
+    width: auto;
+    margin-bottom: 10%;
+  }
+
+  aside {
+    width: 90%;
+    font-size: 2.1vh;
+  }
 }
