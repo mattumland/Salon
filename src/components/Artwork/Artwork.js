@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Artwork.scss';
 import '../Wall/Wall.scss';
 
 const Artwork = ({ id, url, wallLocation }) => {
 
   return (
-    <div data={id} className={`img-container ${wallLocation}`}>
+    <Link to={`/${id}`} data={id} className={`img-container ${wallLocation}`}>
       <img src={url} />
-    </div>
+    </Link>
   )
 
 }
