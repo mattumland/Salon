@@ -3,24 +3,34 @@
 }
 
 .art-details {
+  height: 100%;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
 }
 
-img {
-  height: auto;
-  width: 65%;
+.details-image {
+  height: 90%;
+  max-height: 90vh;
+  max-width: 65%;
+  // margin-top: 1%;
 }
 
 aside {
   width: 25%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   text-align: center;
   border: 1px solid black;
+  // padding: 1em;
+}
+
+aside > h3,
+aside > p {
+  width: 90%;
 }
 
 @media only screen and (max-width: 1050px) {
@@ -28,7 +38,8 @@ aside {
     flex-direction: column;
   }
 
-  img {
+  .details-image {
+    max-width: 90%;
     width: auto;
     margin-bottom: 10%;
   }
