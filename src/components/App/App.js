@@ -46,12 +46,12 @@ function App() {
   // }, [ids])
 
   return (
-    <div className="App">
+    <main className="App">
       {/* {ids.length && console.log('IDs: ', ids)} */}
       {/* {wall.length && console.log('WALL: ', wall)} */}
       {/*wall.length > 1 && <img src={wall[1].primaryImageSmall} />*/}
       <Wall />
-    </div>
+    </main>
   );
 }
 
