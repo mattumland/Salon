@@ -5,7 +5,7 @@ import '../Wall/Wall.scss';
 const Artwork = ({ id, url, wallLocation }) => {
 
   return (
-    <div data={id} className={wallLocation}>
+    <div data={id} className={`img-container ${wallLocation}`}>
       <img src={url} />
     </div>
   )
