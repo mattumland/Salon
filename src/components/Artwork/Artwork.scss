@@ -1,0 +1,18 @@
+.img-container {
+  display: flex;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0px 3px 6px 3px grey;
+  margin: auto;
+}
+
+.div0 { grid-area: 1 / 2 / 2 / 4; }
+.div1 { grid-area: 1 / 5 / 2 / 7; }
+.div2 { grid-area: 2 / 1 / 6 / 4; }
+.div3 { grid-area: 2 / 4 / 4 / 7; }
+.div4 { grid-area: 2 / 7 / 4 / 9; }
+.div5 { grid-area: 4 / 4 / 4 / 6; }
+.div6 { grid-area: 4 / 6 / 6 / 9; }
