@@ -1,0 +1,37 @@
+@import '../../index.scss';
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: solid black 1px;
+
+  .logo-container {
+    width: 100px;
+    text-align: center;
+  }
+
+  h1 {
+    @include headerButton;
+    font-size: 35px;
+
+    &:hover {
+      @include hoverButton;
+    }
+  }
+
+  h2 {
+    @include headerButton;
+    font-size: 20px;
+    margin-top: 22px;
+    font-weight:  100;
+    text-transform: none;
+    padding: 0;
+
+    &:hover {
+      @include hoverButton;
+      margin-top: 20px;
+    }
+  }
+
+}

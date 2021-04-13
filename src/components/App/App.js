@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { shuffleItems } from '../../utilities.js';
 import Wall from '../Wall/Wall';
+import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails.js';
 
 function App() {
@@ -56,10 +57,15 @@ function App() {
 
   return (
     <div className="App">
-      <Route 
-        exact path="/"
-        render={() => <Wall artworks={wall} />}
-      />
+      <Header />
+      <section className='wall-container'>
+        <Wall artworks={wall} />
+      </section>
+
+//       <Route 
+//         exact path="/"
+//         render={() => <Wall artworks={wall} />}
+//       />
       <Route exact path='/:artPieceID' render={({ match }) => {
         const { artPieceID } = match.params;
         return <ArtDetails artPieceID={artPieceID} />
