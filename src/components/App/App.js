@@ -3,6 +3,7 @@ import './App.scss';
 import React, { useState, useEffect } from 'react';
 import { shuffleItems } from '../../utilities.js';
 import Wall from '../Wall/Wall';
+import Header from '../Header/Header';
 
 function App() {
   const [wall, setWall] = useState([]);
@@ -52,8 +53,8 @@ function App() {
 
 
   return (
-    <div className="App">Salon
-
+    <div className="App">
+      <Header />
       <Wall artworks={wall} />
 
       // {ids.length && console.log('Rendering IDs: ', ids)}
