@@ -55,15 +55,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Wall artworks={wall} />
-
-      // {ids.length && console.log('Rendering IDs: ', ids)}
-      // {wall.length && console.log('WALL: ', wall)}
-      // {wall.length && <img src={wall[0].primaryImageSmall} />}
-      // {wall[1] && <img src={wall[1].primaryImageSmall} />}
-      // {wall[2] && <img src={wall[2].primaryImageSmall} />}
-      // {wall[3] && <img src={wall[3].primaryImageSmall} />}
-      // {wall[4] && <img src={wall[4].primaryImageSmall} />}
+      <section className='wall-container'>
+        <Wall artworks={wall} />
+      </section>
     </div>
   );
 }
