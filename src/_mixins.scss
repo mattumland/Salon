@@ -3,6 +3,11 @@
   color: white;
 }
 
+@mixin hoverButton {
+  background-color: white;
+  color: black;
+  border: solid black 1px;
+}
 
 
 

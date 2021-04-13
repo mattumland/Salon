@@ -5,9 +5,9 @@ const Header = () => {
 
   return (
     <header>
-      <section className="logo-container">
+      <button className="logo-container">
         <h1>Salon</h1>
-      </section>
+      </button>
       <button className="user-buttons">
         <h2>favorites</h2>
       </button>
