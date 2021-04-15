@@ -4,7 +4,7 @@ import { shuffleItems, terms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails';
-import SalonContext from '../../SalonContext'
+import SalonContext from '../../context/SalonContext'
 import './App.scss';
 
 const initialState = {
@@ -20,76 +20,92 @@ const reducer = (state, action) => {
   switch(action.type) {
     case 'UPDATE_IDS':
       return {...state, ids: action.ids}
+    case 'UPDATE_WALL':
+      return {...state, wallDisplay: action.wallArt}
   default:
     return state
   }
 }
 
 
-function App() {
+const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // const [wall, setWall] = useState([]);
   // const [error, setError] = useState('');
 
-  const searchTerm = 'q=sunflower';
+  const searchTerm = 'q=sunflower'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
   const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
     .then(response => response.json())
     .catch(error => setError(error.message))
 
+    const getSingleArtPiece = async (index) => {
+      try {
+        const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
+        const response = await item;
+        return await response.json();
+      } catch (error) {
+        // setError(error)
+      }
+    }
 
   const getIDs = async () => {
     const artIDs = await artIdSearch;
     // setError('');
-    const action = { type: 'UPDATE_IDS', ids: artIDs.objectIDs }
+    const shuffledIDs  = shuffleItems(artIDs.objectIDs);
+    const action = { type: 'UPDATE_IDS', ids: shuffledIDs }
     dispatch(action);
   }
 
-
-  const getSingleArtPiece = async (index) => {
-    try {
-      const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-      const response = await item;
-      const artPiece = await response.json();
-      setWall(wall => [...wall, artPiece]);
-    } catch (error) {
-      // setError(error)
-    }
+  const getArtwork = () => {
+    const idSelection = state.ids.filter((id, index) => {
+      if (index < 7) {
+        console.log(id);
+        return id;
+      }
+    })
+    const wallArt = idSelection.map(id => {
+      return getSingleArtPiece(id);
+    })
+    const action = { type: 'UPDATE_WALL', wallDisplay: wallArt};
+    dispatch(action)
   }
+
+
+  const updateError = (errorMessage) => {
+
+  }
+
+
+
 
   useEffect(() => {
     getIDs();
   }, [])
 
   useEffect(() => {
-    // getIDs();
-
-    state.ids.length && getSingleArtPiece(shuffleItems(state.ids)[0]);
-    state.ids.length && getSingleArtPiece(state.ids[1]);
-    state.ids.length && getSingleArtPiece(state.ids[2]);
-    state.ids.length && getSingleArtPiece(state.ids[3]);
-    state.ids.length && getSingleArtPiece(state.ids[4]);
-    state.ids.length && getSingleArtPiece(state.ids[5]);
-    state.ids.length && getSingleArtPiece(state.ids[6]);
+    getArtwork();
   }, [state.ids])
 
   return (
-    <div className="App">
-      <Header />
-  {/*    <Route
-        exact path="/"
-        render={() =>
-          <Wall
-            className='wall-container'
-            artworks={ wall } />}
-      />    */}
-      <Route
-        exact path='/:artPieceID'
-        render={({ match }) => {
-          const { artPieceID } = match.params;
-          return <ArtDetails artPieceID={artPieceID} />}}
+    <SalonContext.Provider value={[state, dispatch]}>
+      <div className="App">
+        <Header />
+        <Route
+          exact path="/"
+          render={() =>
+            <Wall
+              className='wall-container'
+              artworks={ state.wallDisplay } />}
         />
-    </div>
+        <Route
+          exact path='/:artPieceID'
+          render={({ match }) => {
+            const { artPieceID } = match.params;
+            return <ArtDetails artPieceID={artPieceID} />}}
+          />
+      </div>
+    </SalonContext.Provider>
   );
 }
 
