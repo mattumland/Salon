@@ -8,36 +8,41 @@ import SalonContext from '../../SalonContext'
 import './App.scss';
 
 const initialState = {
-    searchTerms: terms,
-    ids: [],
-    wallDisplay: [],
-    artDisplay: {},
-    favorites: []
-  }
+  searchTerms: terms,
+  ids: [],
+  wallDisplay: [],
+  artDisplay: {},
+  favorites: [],
+  error:''
+}
 
 const reducer = (state, action) => {
-    switch(action.type) {
-      case 'UPDATE_IDS':
-
-    default:
-      return state
-    }
+  switch(action.type) {
+    case 'UPDATE_IDS':
+      return {...state, ids: action.ids}
+  default:
+    return state
+  }
 }
 
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const searchTerm = 'q=sunflower'; 
+  // const [wall, setWall] = useState([]);
+  // const [error, setError] = useState('');
+
+  const searchTerm = 'q=sunflower';
   const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
     .then(response => response.json())
     .catch(error => setError(error.message))
 
 
   const getIDs = async () => {
-    const idMatch = await artIdSearch;
-    setError('');
-    setIDs(idMatch.objectIDs);
+    const artIDs = await artIdSearch;
+    // setError('');
+    const action = { type: 'UPDATE_IDS', ids: artIDs.objectIDs }
+    dispatch(action);
   }
 
 
@@ -48,7 +53,7 @@ function App() {
       const artPiece = await response.json();
       setWall(wall => [...wall, artPiece]);
     } catch (error) {
-      setError(error)
+      // setError(error)
     }
   }
 
@@ -59,25 +64,25 @@ function App() {
   useEffect(() => {
     // getIDs();
 
-    ids.length && getSingleArtPiece(shuffleItems(ids)[0]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[1]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[2]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[3]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[4]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[5]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[6]);
-  }, [ids])
+    state.ids.length && getSingleArtPiece(shuffleItems(state.ids)[0]);
+    state.ids.length && getSingleArtPiece(state.ids[1]);
+    state.ids.length && getSingleArtPiece(state.ids[2]);
+    state.ids.length && getSingleArtPiece(state.ids[3]);
+    state.ids.length && getSingleArtPiece(state.ids[4]);
+    state.ids.length && getSingleArtPiece(state.ids[5]);
+    state.ids.length && getSingleArtPiece(state.ids[6]);
+  }, [state.ids])
 
   return (
     <div className="App">
       <Header />
-      <Route
+  {/*    <Route
         exact path="/"
         render={() =>
           <Wall
             className='wall-container'
             artworks={ wall } />}
-      />
+      />    */}
       <Route
         exact path='/:artPieceID'
         render={({ match }) => {
