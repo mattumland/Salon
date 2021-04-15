@@ -21,7 +21,7 @@ const reducer = (state, action) => {
     case 'UPDATE_IDS':
       return {...state, ids: action.ids}
     case 'UPDATE_WALL':
-      return {...state, wallDisplay: action.wallArt}
+      return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
   default:
     return state
   }
@@ -39,16 +39,6 @@ const App = () => {
     .then(response => response.json())
     .catch(error => setError(error.message))
 
-    const getSingleArtPiece = async (index) => {
-      try {
-        const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-        const response = await item;
-        return await response.json();
-      } catch (error) {
-        // setError(error)
-      }
-    }
-
   const getIDs = async () => {
     const artIDs = await artIdSearch;
     // setError('');
@@ -57,18 +47,25 @@ const App = () => {
     dispatch(action);
   }
 
-  const getArtwork = () => {
+
+  const getSingleArtPiece = async (index) => {
+      const art = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
+      const response = await art;
+      const artResponse = await response.json();
+      console.log(artResponse)
+      const action = { type: 'UPDATE_WALL', newArt: artResponse }
+      dispatch(action)
+    }
+
+  const getArtwork = async () => {
     const idSelection = state.ids.filter((id, index) => {
       if (index < 7) {
-        console.log(id);
         return id;
       }
     })
-    const wallArt = idSelection.map(id => {
-      return getSingleArtPiece(id);
+    idSelection.forEach(id => {
+      getSingleArtPiece(id);
     })
-    const action = { type: 'UPDATE_WALL', wallDisplay: wallArt};
-    dispatch(action)
   }
 
 
