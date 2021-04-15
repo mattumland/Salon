@@ -31,10 +31,7 @@ const reducer = (state, action) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // const [wall, setWall] = useState([]);
-  // const [error, setError] = useState('');
-
-  const searchTerm = 'q=sunflower'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
+  const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
   const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
     .then(response => response.json())
     .catch(error => setError(error.message))
@@ -52,7 +49,6 @@ const App = () => {
       const art = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
       const response = await art;
       const artResponse = await response.json();
-      console.log(artResponse)
       const action = { type: 'UPDATE_WALL', newArt: artResponse }
       dispatch(action)
     }
@@ -68,12 +64,9 @@ const App = () => {
     })
   }
 
-
   const updateError = (errorMessage) => {
 
   }
-
-
 
 
   useEffect(() => {
@@ -90,16 +83,11 @@ const App = () => {
         <Header />
         <Route
           exact path="/"
-          render={() =>
-            <Wall
-              className='wall-container'
-              artworks={ state.wallDisplay } />}
-        />
+          render={() => <Wall />} />
         <Route
           exact path='/:artPieceID'
           render={({ match }) => {
-            const { artPieceID } = match.params;
-            return <ArtDetails artPieceID={artPieceID} />}}
+            return <ArtDetails id={match.params.artPieceID} />}}
           />
       </div>
     </SalonContext.Provider>

@@ -1,34 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import SalonContext from '../../context/SalonContext'
 import './ArtDetails.scss';
 
-const ArtDetails = ({ artPieceID }) => {
-  const [ selectedArt, setSelectedArt ] = useState('');
+const ArtDetails = ({ id }) => {
 
-    const getSingleArtPiece = async () => {
-      const singleArtURL = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artPieceID}`;
+  const [state, dispatch] = useContext(SalonContext);
 
-      try {
-        const response = await fetch(singleArtURL);
-        const artPiece = await response.json();
-        setSelectedArt(artPiece);
-      } catch (error) {
-      }
-    }
+  const singleArtwork = state.wallDisplay.filter(art => {
+    return art.objectID === parseInt(id)
+  });
 
-    useEffect(() => {
-      getSingleArtPiece();
-    }, [])
   return (
     <>
       <section className="art-details">
-        {console.log(selectedArt)}
-        <img className="details-image" src={selectedArt.primaryImage} alt={selectedArt.title}/>
+        <img className="details-image" src={singleArtwork[0].primaryImage} alt={singleArtwork[0].title}/>
         <aside>
           <h2>Featured Artifact:</h2>
-          <h3>"{selectedArt.title}"</h3>
-          <p>c. {selectedArt.objectBeginDate}-{selectedArt.objectEndDate}</p>
-          <p>{selectedArt.artistDisplayName}</p>
-          <p>{selectedArt.medium}</p>
+          <h3>"{singleArtwork[0].title}"</h3>
+          <p>c. {singleArtwork[0].objectBeginDate}-{singleArtwork[0].objectEndDate}</p>
+          <p>{singleArtwork[0].artistDisplayName}</p>
+          <p>{singleArtwork[0].medium}</p>
         </aside>
       </section>
     </>

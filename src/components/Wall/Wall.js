@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import SalonContext from '../../context/SalonContext'
+import SalonContext from '../../context/SalonContext';
 import Artwork from '../Artwork/Artwork';
 import './Wall.scss';
 
