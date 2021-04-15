@@ -2,6 +2,7 @@ import './App.scss';
 import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { shuffleItems } from '../../utilities.js';
+import { getAllIDs, fetchArtObject } from '../../api.js'
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails.js';
@@ -15,14 +16,20 @@ function App() {
   const searchTerm = 'q=sunflower'; // search terms that we made to state
 
 
-  const getIDs = async () => {
-    const artURL = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`;
+  const getIDs = async (searchTerm) => {
     setError('');
 
     try {
-      const response = await fetch(artURL);
-      const artIDs = await response.json();
-      setIDs(artIDs.objectIDs);
+      const allIDs = await getAllIDs(searchTerm);
+      setIDs(allIDs);
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  const getSingleArtPiece = async (index) => {
+    try {
+      return fetchArtObject(index);
     } catch (error) {
       setError(error)
     }
@@ -39,19 +46,8 @@ function App() {
     Promise.all(wall).then(collectedPieces => setArtPieces(collectedPieces))
   }
 
-  const getSingleArtPiece = async (index) => {
-    try {
-      const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-      const artPiece = await response.json();
-      return artPiece;
-    } catch (error) {
-      setError(error)
-    }
-  }
-
   useEffect( async () => {
-    getIDs();
-    // await ids.length && collectArtPieces();
+    getIDs(searchTerm);
   }, [])
 
   useEffect(() => {
