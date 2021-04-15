@@ -1,19 +1,34 @@
-import './App.scss';
 import { Route } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { shuffleItems } from '../../utilities.js';
+import React, { useState, useEffect, useReducer } from 'react';
+import { shuffleItems, terms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
-import ArtDetails from '../ArtDetails/ArtDetails.js';
+import ArtDetails from '../ArtDetails/ArtDetails';
+import SalonContext from '../../SalonContext'
+import './App.scss';
+
+const initialState = {
+    searchTerms: terms,
+    ids: [],
+    wallDisplay: [],
+    artDisplay: {},
+    favorites: []
+  }
+
+const reducer = (state, action) => {
+    switch(action.type) {
+      case 'UPDATE_IDS':
+
+    default:
+      return state
+    }
+}
+
 
 function App() {
-  const [wall, setWall] = useState([]);
-  const [ids, setIDs] = useState([]);
-  const [error, setError] = useState('');
-  // const [ artDetail, setArtDetail ] = useState({});
-  // const [ favorites, setFavorites ] = useState([]);
-  //const [ searchTerms, setSearchTerms ] = useState([]);
-  const searchTerm = 'q=sunflower'; // search terms that we made to state
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const searchTerm = 'q=sunflower'; 
   const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
     .then(response => response.json())
     .catch(error => setError(error.message))
@@ -53,31 +68,22 @@ function App() {
     ids.length && getSingleArtPiece(shuffleItems(ids)[6]);
   }, [ids])
 
-
-
   return (
     <div className="App">
       <Header />
-      <section className='wall-container'>
-        <Wall artworks={wall} />
-      </section>
-
-//       <Route 
-//         exact path="/"
-//         render={() => <Wall artworks={wall} />}
-//       />
-      <Route exact path='/:artPieceID' render={({ match }) => {
-        const { artPieceID } = match.params;
-        return <ArtDetails artPieceID={artPieceID} />
-      }} />
-
-      {/* // {ids.length && console.log('Rendering IDs: ', ids)}
-      // {wall.length && console.log('WALL: ', wall)}
-      // {wall.length && <img src={wall[0].primaryImageSmall} />}
-      // {wall[1] && <img src={wall[1].primaryImageSmall} />}
-      // {wall[2] && <img src={wall[2].primaryImageSmall} />}
-      // {wall[3] && <img src={wall[3].primaryImageSmall} />}
-      // {wall[4] && <img src={wall[4].primaryImageSmall} />} */}
+      <Route
+        exact path="/"
+        render={() =>
+          <Wall
+            className='wall-container'
+            artworks={ wall } />}
+      />
+      <Route
+        exact path='/:artPieceID'
+        render={({ match }) => {
+          const { artPieceID } = match.params;
+          return <ArtDetails artPieceID={artPieceID} />}}
+        />
     </div>
   );
 }

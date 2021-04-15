@@ -12,7 +12,6 @@ const ArtDetails = ({ artPieceID }) => {
         const artPiece = await response.json();
         setSelectedArt(artPiece);
       } catch (error) {
-        console.log(error)
       }
     }
 
