@@ -2,55 +2,56 @@ import './App.scss';
 import { Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { shuffleItems } from '../../utilities.js';
+import { getAllIDs, fetchArtObject } from '../../api.js'
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails.js';
 
 function App() {
-  const [wall, setWall] = useState([]);
+  const [artPieces, setArtPieces] = useState([]);
   const [ids, setIDs] = useState([]);
   const [error, setError] = useState('');
-  // const [ artDetail, setArtDetail ] = useState({});
   // const [ favorites, setFavorites ] = useState([]);
   //const [ searchTerms, setSearchTerms ] = useState([]);
   const searchTerm = 'q=sunflower'; // search terms that we made to state
-  const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
-    .then(response => response.json())
-    .catch(error => setError(error.message))
 
 
-  const getIDs = async () => {
-    const idMatch = await artIdSearch;
+  const getIDs = async (searchTerm) => {
     setError('');
-    setIDs(idMatch.objectIDs);
-  }
 
-
-  const getSingleArtPiece = async (index) => {
     try {
-      const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-      const response = await item;
-      const artPiece = await response.json();
-      setWall(wall => [...wall, artPiece]);
+      const allIDs = await getAllIDs(searchTerm);
+      setIDs(allIDs);
     } catch (error) {
       setError(error)
     }
   }
 
-  useEffect(() => {
-    getIDs();
+  const getSingleArtPiece = async (index) => {
+    try {
+      return fetchArtObject(index);
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  const collectArtPieces = () => {
+    const shuffledPieces = shuffleItems(ids);
+    const wall = [];
+
+    for (var i = 0; i < 7; i++) {
+      const artPiece = getSingleArtPiece(shuffledPieces[i])
+      wall.push(artPiece);
+    }
+    Promise.all(wall).then(collectedPieces => setArtPieces(collectedPieces))
+  }
+
+  useEffect( async () => {
+    getIDs(searchTerm);
   }, [])
 
   useEffect(() => {
-    // getIDs();
-
-    ids.length && getSingleArtPiece(shuffleItems(ids)[0]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[1]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[2]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[3]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[4]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[5]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[6]);
+    ids.length && collectArtPieces();
   }, [ids])
 
 
@@ -58,14 +59,14 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <section className='wall-container'>
-        <Wall artworks={wall} />
-      </section>
-
-//       <Route 
-//         exact path="/"
-//         render={() => <Wall artworks={wall} />}
-//       />
+      <Route 
+        exact path="/"
+        render={() => (
+          <section className='wall-container'>
+            <Wall artworks={artPieces} />
+          </section>
+        )}
+        /> 
       <Route exact path='/:artPieceID' render={({ match }) => {
         const { artPieceID } = match.params;
         return <ArtDetails artPieceID={artPieceID} />
