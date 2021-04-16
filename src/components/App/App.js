@@ -19,10 +19,9 @@ const initialState = {
 const App = () => {
   const [state, dispatch] = useReducer(salonReducer, initialState);
 
-  const getIDs = async () => {
+  const getIDs = async (searchTerms) => {
     try {
-      const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
-      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
+      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerms}`)
       const response = await artIDSearch;
       const idResponse = await response.json()
       const shuffledIDs  = shuffleItems(idResponse.objectIDs);

@@ -7,11 +7,14 @@ import '../Wall/Wall.scss';
 const Artwork = ({ id, url, wallLocation }) => {
   const [state, dispatch] = useContext(SalonContext)
 
-
   return (
-    <Link to={`/${id}`} className={`img-container ${wallLocation}`}>
+    <section className={wallLocation}>
+    <Link
+      className={`img-container`}
+      to={`/${id}`}>
       <img src={url} />
     </Link>
+    </section>
   )
 }
 
