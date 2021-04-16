@@ -1,84 +1,99 @@
-import './App.scss';
 import { Route } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { shuffleItems } from '../../utilities.js';
+import React, { useState, useEffect, useReducer } from 'react';
+import { shuffleItems, terms, createTerms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
-import ArtDetails from '../ArtDetails/ArtDetails.js';
+import ArtDetails from '../ArtDetails/ArtDetails';
+import SalonContext from '../../context/SalonContext'
+import './App.scss';
 
-function App() {
-  const [wall, setWall] = useState([]);
-  const [ids, setIDs] = useState([]);
-  const [error, setError] = useState('');
-  // const [ artDetail, setArtDetail ] = useState({});
-  // const [ favorites, setFavorites ] = useState([]);
-  //const [ searchTerms, setSearchTerms ] = useState([]);
-  const searchTerm = 'q=sunflower'; // search terms that we made to state
-  const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
-    .then(response => response.json())
-    .catch(error => setError(error.message))
+const initialState = {
+  searchTerms: terms,
+  ids: [],
+  wallDisplay: [],
+  favorites: [],
+  error:''
+}
 
+const reducer = (state, action) => {
+  switch(action.type) {
+    case 'UPDATE_IDS':
+      return {...state, ids: action.ids}
+    case 'UPDATE_WALL':
+      return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
+    case 'UPDATE_ERROR':
+      return {...state, error: action.error}
+    case 'ADD_FAVORITE':
+      return {...state, favorites: [...state.favorites, action.favorite]}
+  default:
+    return state
+  }
+}
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const getIDs = async () => {
-    const idMatch = await artIdSearch;
-    setError('');
-    setIDs(idMatch.objectIDs);
-  }
-
+    try {
+      const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
+      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
+      const response = await artIDSearch;
+      const idResponse = await response.json()
+      const shuffledIDs  = shuffleItems(idResponse.objectIDs);
+      const action = { type: 'UPDATE_IDS', ids: shuffledIDs }
+      dispatch(action);
+    } catch(error) {
+        const action = { type: 'UPDATE_ERROR', error: error.message}
+        dispatch(action);
+      }
+    }
 
   const getSingleArtPiece = async (index) => {
-    try {
-      const item = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
-      const response = await item;
-      const artPiece = await response.json();
-      setWall(wall => [...wall, artPiece]);
-    } catch (error) {
-      setError(error)
+    try{
+      const art = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
+      const response = await art;
+      const artResponse = await response.json();
+      const action = { type: 'UPDATE_WALL', newArt: artResponse }
+      dispatch(action)
+    } catch(error) {
+        const action = { type: 'UPDATE_ERROR', error: error.message}
+        dispatch(action);
+      }
     }
+
+  const getArtwork = async () => {
+    const idSelection = state.ids.filter((id, index) => {
+      if (index < 7) {
+        return id;
+      }
+    })
+    idSelection.forEach(id => {
+      getSingleArtPiece(id);
+    })
   }
 
   useEffect(() => {
-    getIDs();
+    getIDs(createTerms(state.searchTerms));
   }, [])
 
   useEffect(() => {
-    // getIDs();
-
-    ids.length && getSingleArtPiece(shuffleItems(ids)[0]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[1]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[2]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[3]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[4]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[5]);
-    ids.length && getSingleArtPiece(shuffleItems(ids)[6]);
-  }, [ids])
-
-
+    getArtwork();
+  }, [state.ids])
 
   return (
-    <div className="App">
-      <Header />
-      <section className='wall-container'>
-        <Wall artworks={wall} />
-      </section>
-
-//       <Route 
-//         exact path="/"
-//         render={() => <Wall artworks={wall} />}
-//       />
-      <Route exact path='/:artPieceID' render={({ match }) => {
-        const { artPieceID } = match.params;
-        return <ArtDetails artPieceID={artPieceID} />
-      }} />
-
-      {/* // {ids.length && console.log('Rendering IDs: ', ids)}
-      // {wall.length && console.log('WALL: ', wall)}
-      // {wall.length && <img src={wall[0].primaryImageSmall} />}
-      // {wall[1] && <img src={wall[1].primaryImageSmall} />}
-      // {wall[2] && <img src={wall[2].primaryImageSmall} />}
-      // {wall[3] && <img src={wall[3].primaryImageSmall} />}
-      // {wall[4] && <img src={wall[4].primaryImageSmall} />} */}
-    </div>
+    <SalonContext.Provider value={[state, dispatch]}>
+      <div className="App">
+        <Header />
+        <Route
+          exact path="/"
+          render={() => <Wall />} />
+        <Route
+          exact path='/:artPieceID'
+          render={({ match }) => {
+            return <ArtDetails id={match.params.artPieceID} />}}
+          />
+      </div>
+    </SalonContext.Provider>
   );
 }
 

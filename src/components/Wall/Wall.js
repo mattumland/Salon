@@ -1,25 +1,28 @@
-import React from 'react';
-import './Wall.scss';
+import React, { useContext } from 'react';
+import SalonContext from '../../context/SalonContext';
 import Artwork from '../Artwork/Artwork';
+import './Wall.scss';
 
-const Wall = ({ artworks }) => {
+const Wall = () => {
+
+  const [state, dispatch] = useContext(SalonContext);
 
   // const salonTemplates = []; This will eventually contain multiple templates to choose from.
 
-  const artworksToDisplay = artworks.map((artwork, index) => {
+  const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
       return (
         <Artwork
-        wallLocation={`div${index}`}
-        key={artwork.objectID}
-        id={artwork.objectID}
-        url={artwork.primaryImageSmall}
+          wallLocation={`div${index}`}
+          key={artwork.objectID}
+          id={artwork.objectID}
+          url={artwork.primaryImageSmall}
         />
       )
   })
 
   return (
       <section className='salonTemplate'>
-        {artworksToDisplay}
+        {artworkToDisplay}
       </section>
   )
 
