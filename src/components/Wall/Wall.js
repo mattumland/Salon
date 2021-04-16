@@ -4,10 +4,7 @@ import Artwork from '../Artwork/Artwork';
 import './Wall.scss';
 
 const Wall = () => {
-
   const [state, dispatch] = useContext(SalonContext);
-
-  // const salonTemplates = []; This will eventually contain multiple templates to choose from.
 
   const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
       return (

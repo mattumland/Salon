@@ -8,7 +8,6 @@ export const shuffleItems = (array) => {
 
 export const createTerms = (array) => {
   const shuffledTerms = shuffleItems(array);
-  console.log(shuffledTerms)
   return `q=${shuffledTerms[0]}&q=${shuffledTerms[1]}`;
 }
 
