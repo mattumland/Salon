@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
-import { shuffleItems, terms } from '../../utilities.js';
+import { shuffleItems, terms, createTerms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails';
@@ -11,7 +11,6 @@ const initialState = {
   searchTerms: terms,
   ids: [],
   wallDisplay: [],
-  artDisplay: {},
   favorites: [],
   error:''
 }
@@ -22,35 +21,46 @@ const reducer = (state, action) => {
       return {...state, ids: action.ids}
     case 'UPDATE_WALL':
       return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
+    case 'UPDATE_ERROR':
+      return {...state, error: action.error}
   default:
     return state
   }
 }
 
-
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
-  const artIdSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
-    .then(response => response.json())
-    .catch(error => setError(error.message))
+
+    // .then(response => response.json())
+    // .catch(error => setError(error.message))
 
   const getIDs = async () => {
-    const artIDs = await artIdSearch;
-    // setError('');
-    const shuffledIDs  = shuffleItems(artIDs.objectIDs);
-    const action = { type: 'UPDATE_IDS', ids: shuffledIDs }
-    dispatch(action);
-  }
-
+    try {
+      const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
+      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
+      const response = await artIDSearch;
+      const idResponse = await response.json()
+      const shuffledIDs  = shuffleItems(idResponse.objectIDs);
+      const action = { type: 'UPDATE_IDS', ids: shuffledIDs }
+      dispatch(action);
+    } catch(error) {
+        const action = { type: 'UPDATE_ERROR', error: error.message}
+        dispatch(action);
+      }
+    }
 
   const getSingleArtPiece = async (index) => {
+    try{
       const art = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${index}`)
       const response = await art;
       const artResponse = await response.json();
       const action = { type: 'UPDATE_WALL', newArt: artResponse }
       dispatch(action)
+    } catch(error) {
+        const action = { type: 'UPDATE_ERROR', error: error.message}
+        dispatch(action);
+      }
     }
 
   const getArtwork = async () => {
@@ -64,13 +74,8 @@ const App = () => {
     })
   }
 
-  const updateError = (errorMessage) => {
-
-  }
-
-
   useEffect(() => {
-    getIDs();
+    getIDs(createTerms(state.searchTerms));
   }, [])
 
   useEffect(() => {

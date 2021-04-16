@@ -13,7 +13,8 @@ const ArtDetails = ({ id }) => {
   return (
     <>
       <section className="art-details">
-        <img className="details-image" src={singleArtwork[0].primaryImage} alt={singleArtwork[0].title}/>
+        <img className="details-image" src={singleArtwork[0].primaryImage}
+              alt={`${singleArtwork[0].title} by ${singleArtwork[0].artistDisplayName}`}/>
         <aside>
           <h2>Featured Artifact:</h2>
           <h3>"{singleArtwork[0].title}"</h3>
