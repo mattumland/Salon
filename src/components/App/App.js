@@ -23,6 +23,8 @@ const reducer = (state, action) => {
       return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
     case 'UPDATE_ERROR':
       return {...state, error: action.error}
+    case 'ADD_FAVORITE':
+      return {...state, favorites: [...state.favorites, action.favorite]}
   default:
     return state
   }
@@ -30,10 +32,6 @@ const reducer = (state, action) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-
-    // .then(response => response.json())
-    // .catch(error => setError(error.message))
 
   const getIDs = async () => {
     try {

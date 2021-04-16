@@ -12,10 +12,10 @@ const Wall = () => {
   const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
       return (
         <Artwork
-        wallLocation={`div${index}`}
-        key={artwork.objectID}
-        id={artwork.objectID}
-        url={artwork.primaryImageSmall}
+          wallLocation={`div${index}`}
+          key={artwork.objectID}
+          id={artwork.objectID}
+          url={artwork.primaryImageSmall}
         />
       )
   })
