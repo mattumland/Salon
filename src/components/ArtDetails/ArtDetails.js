@@ -1,26 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { addToFavList, removeFromFavList } from '../../utilities'
 import SalonContext from '../../context/SalonContext'
 import './ArtDetails.scss';
 
 const ArtDetails = ({ id }) => {
-  const [isFav, setFav] = useState(false)
-
-  //check if this is favorite and update dynamic
-  //this needs to be dynmallly checked on render
-  // let isFav = false; //✓
-  /*
-  @Matt try throwing this in before the favorite
-{' '}
-Like <tag>{' '} favorite</tag>
-You could also try <tag><span> </span>favorite</tag>*/
-
   const [state, dispatch] = useContext(SalonContext);
 
   const singleArtwork = state.wallDisplay.filter(art => {
     return art.objectID === parseInt(id)
   });
 
-  const updateFav = () => {
+  const [isFav, setFav] = useState(state.favorites.includes(singleArtwork[0]))
+
+  const toggleFav = () => {
     if (isFav) {
         setFav(false)
       } else {
@@ -28,19 +20,13 @@ You could also try <tag><span> </span>favorite</tag>*/
       }
   }
 
-  const updateFavList = (artwork) => {
-    const newFavList = state.favorites;
-    const artIndex = newFavList.indexOf(artwork)
-    if (artIndex === -1) {
-      newFavList.push(artwork);
-    } else {
-      newFavList.splice(artIndex, 1);
-    }
-    const action = { type: 'UPDATE_FAVORITE', newFavorites: newFavList}
-  }
-
   useEffect(() => {
-    updateFavList(singleArtwork[0]);
+    if (isFav && !state.favorites.includes(singleArtwork[0])) {
+      addToFavList(singleArtwork[0], state.favorites);
+    } else if (!isFav && state.favorites.includes(singleArtwork[0])){
+      removeFromFavList(singleArtwork[0], state.favorites);
+    }
+      console.log(isFav, state.favorites);
   }, [isFav])
 
   return (
@@ -56,8 +42,8 @@ You could also try <tag><span> </span>favorite</tag>*/
             <p>{singleArtwork[0].medium}</p>
           </aside>
             <div className="fav-box">
-            {isFav ? <button onClick={updateFav} className='favorite'>✓ favorite</button> :
-                      <button onClick={updateFav} className='not-favorite'>+ favorite</button>}
+            {isFav ? <button onClick={toggleFav} className='favorite'>✓ favorite</button> :
+                      <button onClick={toggleFav} className='not-favorite'>+ favorite</button>}
             </div>
         </div>
       </section>
