@@ -6,8 +6,8 @@ const salonReducer = (state, action) => {
       return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
     case 'UPDATE_ERROR':
       return {...state, error: action.error}
-    case 'ADD_FAVORITE':
-      return {...state, favorites: [...state.favorites, action.favorite]}
+    case 'UPDATE_FAVORITE':
+      return {...state, favorites: action.newFavorites}
   default:
     return state
   }

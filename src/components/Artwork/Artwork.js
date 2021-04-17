@@ -12,7 +12,7 @@ const Artwork = ({ id, url, wallLocation }) => {
     <Link
       className={`img-container`}
       to={`/${id}`}>
-      <img src={url} />
+      <img className="wall-img" src={url} />
     </Link>
     </section>
   )
