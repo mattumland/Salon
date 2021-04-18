@@ -1,3 +1,11 @@
+@import '../../index.scss';
+
+.display-terms {
+  @include pageMargins;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
 .salon-template {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

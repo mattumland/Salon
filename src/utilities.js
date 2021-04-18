@@ -20,8 +20,7 @@ export const removeFromFavList = (artwork, favList) => {
 }
 
 export const createTerms = (array) => {
-  const shuffledTerms = shuffleItems(array);
-  return `q=${shuffledTerms[0]}&q=${shuffledTerms[1]}`;
+  return `q=${array[0]}&q=${array[1]}`;
 }
 
 export const terms = [
