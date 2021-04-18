@@ -16,7 +16,6 @@ const FavoriteList = () => {
         key={fav.objectID}
         artwork={fav}
         />
-
       )
     })
   }

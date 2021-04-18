@@ -8,7 +8,7 @@ export const shuffleItems = (array) => {
 
 export const addToFavList = (artwork, favList) => {
   const newFavList = favList;
-  newFavList.push(artwork);
+  newFavList.unshift(artwork);
   const action = { type: 'UPDATE_FAVORITE', newFavorites: newFavList}
 }
 
