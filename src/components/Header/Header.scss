@@ -5,7 +5,6 @@ header {
   padding: 15px 0 15px 0;
   display: flex;
   justify-content: space-between;
-  // padding: 20px;
   border-bottom: solid black 1px;
 
   .logo-container {
@@ -25,15 +24,22 @@ header {
   h2 {
     @include headerButton;
     font-size: 20px;
-    margin-top: 19px;
     font-weight:  100;
     text-transform: none;
-    padding: 0;
+    margin: 14px 10px 0 0;
+    padding: 1px;
 
     &:hover {
       @include hoverButton;
-      margin-top: 20px;
+      margin: 12px 10px 0 0;
+
     }
+  }
+
+  .user-buttons {
+    flex-direction: row;
+    border: none;
+    align-self: flex-end;
   }
 
 }
