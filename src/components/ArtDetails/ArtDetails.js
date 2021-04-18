@@ -26,8 +26,9 @@ const ArtDetails = ({ id }) => {
     } else if (!isFav && state.favorites.includes(singleArtwork[0])){
       removeFromFavList(singleArtwork[0], state.favorites);
     }
-      console.log(isFav, state.favorites);
   }, [isFav])
+
+  console.log(singleArtwork[0]);
 
   return (
     <>

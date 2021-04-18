@@ -1,8 +1,7 @@
 @import '../../index.scss';
 
 header {
-  width: 95%;
-  margin: 0 auto;
+  @include pageMargins;
   padding: 15px 0 15px 0;
   display: flex;
   justify-content: space-between;

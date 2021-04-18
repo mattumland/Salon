@@ -9,9 +9,20 @@
   border: solid black 1px;
 }
 
+@mixin favGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr) .25fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 0px;
+}
 
+@mixin pageMargins {
+  width: 95%;
+  margin: 0 auto;
+}
 
-// @mixin pageMargins {
-//   width: 95%;
-//   margin: 0 auto;
-// }
+@mixin error {
+  font-size: 20px;
+  margin: 50px auto;
+}

@@ -1,10 +1,11 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
 import { shuffleItems, terms, createTerms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails';
-import SalonContext from '../../context/SalonContext'
+import FavoriteList from '../FavoriteList/FavoriteList';
+import SalonContext from '../../context/SalonContext';
 import salonReducer from '../../context/salonReducer';
 import './App.scss';
 
@@ -69,14 +70,21 @@ const App = () => {
     <SalonContext.Provider value={[state, dispatch]}>
       <div className="App">
         <Header />
-        <Route
-          exact path="/"
-          render={() => <Wall />} />
-        <Route
-          exact path='/:artPieceID'
-          render={({ match }) => {
-            return <ArtDetails id={match.params.artPieceID} />}}
+        <Switch>
+          <Route
+            exact path="/"
+            render={() => <Wall />}
           />
+          <Route
+          exact path="/favorites"
+          render={() => <FavoriteList />}
+          />
+          <Route
+            exact path="/:artPieceID"
+            render={({ match }) => {
+              return <ArtDetails id={match.params.artPieceID} />}}
+          />
+        </Switch>
       </div>
     </SalonContext.Provider>
   );

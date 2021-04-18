@@ -7,14 +7,12 @@ export const shuffleItems = (array) => {
 }
 
 export const addToFavList = (artwork, favList) => {
-  console.log('addToFavList')
   const newFavList = favList;
   newFavList.push(artwork);
   const action = { type: 'UPDATE_FAVORITE', newFavorites: newFavList}
 }
 
 export const removeFromFavList = (artwork, favList) => {
-  console.log('removeFromFavList');
   const newFavList = favList;
   const artIndex = newFavList.indexOf(artwork)
   newFavList.splice(artIndex, 1);
