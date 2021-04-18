@@ -1,7 +1,8 @@
 @import '../../index.scss';
 
 .art-details {
-  margin: 15px;
+  @include pageMargins;
+  margin-top: 15px;
   height: 100%;
   display: flex;
   flex-direction: row-reverse;
