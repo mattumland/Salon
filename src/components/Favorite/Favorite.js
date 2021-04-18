@@ -15,7 +15,7 @@ const Favorite = ({ artwork }) => {
         <img className="fav-img" src={artwork.primaryImageSmall} />
       </Link>
       <h5 className="title">{artwork.title}</h5>
-      <h5 className="date">{artwork.objectEndDate}</h5>
+      <h5 className="date">{artwork.objectDate}</h5>
       <h5 className="artist">{artwork.artistDisplayName}</h5>
       <h5 className="medium">{artwork.medium}</h5>
     </section>

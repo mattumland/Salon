@@ -1,7 +1,8 @@
 @import '../../index.scss';
 
 .art-details {
-  margin: 15px;
+  @include pageMargins;
+  margin-top: 15px;
   height: 100%;
   display: flex;
   flex-direction: row-reverse;
@@ -57,6 +58,11 @@ aside > p {
     border: 1px solid black;
     padding: 3px;
   }
+}
+
+.error {
+  text-align: center;
+  @include error;
 }
 
 @media only screen and (max-width: 1050px) {
