@@ -20,8 +20,6 @@ const FavoriteList = () => {
     })
   }
 
-  console.log(favsToDisplay);
-
   return(
     <>
       <section className="fav-grid-header">

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { removeFromFavList } from '../../utilities'
 import SalonContext from '../../context/SalonContext';
@@ -9,14 +9,15 @@ const Favorite = ({ artwork }) => {
 
   return (
     <section className="fav-grid-entry">
-      <div className="artwork">
+      <Link
+        className="artwork"
+        to={`/${artwork.objectID}`}>
         <img className="fav-img" src={artwork.primaryImageSmall} />
-      </div>
+      </Link>
       <h5 className="title">{artwork.title}</h5>
       <h5 className="date">{artwork.objectEndDate}</h5>
       <h5 className="artist">{artwork.artistDisplayName}</h5>
       <h5 className="medium">{artwork.medium}</h5>
-      <div className="remove"><button>remove</button></div>
     </section>
   )
 }

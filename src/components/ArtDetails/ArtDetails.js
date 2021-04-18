@@ -28,8 +28,6 @@ const ArtDetails = ({ id }) => {
     }
   }, [isFav])
 
-  console.log(singleArtwork[0]);
-
   return (
     <>
       <section className="art-details">
