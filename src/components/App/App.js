@@ -71,6 +71,9 @@ const App = () => {
     <SalonContext.Provider value={[state, dispatch]}>
       <div className="App">
         <Header />
+      
+        {state.error && (<p className='error' > {state.error} </p>)}
+
         <Switch>
           <Route
             exact path="/"

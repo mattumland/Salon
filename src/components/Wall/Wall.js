@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SalonContext from '../../context/SalonContext';
 import Artwork from '../Artwork/Artwork';
 import './Wall.scss';
 
 const Wall = () => {
   const [state, dispatch] = useContext(SalonContext);
-
-  const displayTerms = `${state.searchTerms[0]} & ${state.searchTerms[1]}`
 
   const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
       return (
@@ -21,10 +19,13 @@ const Wall = () => {
 
   return (
       <>
-      <h2 className='display-terms'>{displayTerms}</h2>
-      <section className='salon-template'>
-        {artworkToDisplay}
-      </section>
+        {(state.wallDisplay.length < 7) && (
+          <p className='loading'> Your display is being curated. </p>
+        )}
+
+        <section className='salon-template'>
+          {artworkToDisplay}
+        </section>
       </>
   )
 
