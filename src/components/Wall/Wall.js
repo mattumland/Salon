@@ -18,7 +18,7 @@ const Wall = () => {
   })
 
   return (
-      <section className='salonTemplate'>
+      <section className='salon-template'>
         {artworkToDisplay}
       </section>
   )
