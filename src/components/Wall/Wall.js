@@ -12,6 +12,7 @@ const Wall = () => {
           wallLocation={`div${index}`}
           key={artwork.objectID}
           id={artwork.objectID}
+          title={artwork.title}
           url={artwork.primaryImageSmall}
         />
       )
