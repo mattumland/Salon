@@ -1,0 +1,26 @@
+@import '../../index.scss';
+
+.fav-grid-header {
+  @include pageMargins;
+  @include favGrid;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 20px;
+
+  .artwork { grid-area: 1 / 1 / 2 / 2; }
+  .title { grid-area: 1 / 2 / 2 / 3; }
+  .date { grid-area: 1 / 3 / 2 / 4; }
+  .artist { grid-area: 1 / 4 / 2 / 5; }
+  .medium { grid-area: 1 / 5 / 2 / 6; }
+}
+
+.fav-list {
+  @include pageMargins;
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  @include error;
+}

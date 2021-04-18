@@ -1,10 +1,12 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
 import { shuffleItems, terms, createTerms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails';
-import SalonContext from '../../context/SalonContext'
+import FavoriteList from '../FavoriteList/FavoriteList';
+import SalonContext from '../../context/SalonContext';
+import salonReducer from '../../context/salonReducer';
 import './App.scss';
 
 const initialState = {
@@ -15,28 +17,12 @@ const initialState = {
   error:''
 }
 
-const reducer = (state, action) => {
-  switch(action.type) {
-    case 'UPDATE_IDS':
-      return {...state, ids: action.ids}
-    case 'UPDATE_WALL':
-      return {...state, wallDisplay: [...state.wallDisplay, action.newArt]}
-    case 'UPDATE_ERROR':
-      return {...state, error: action.error}
-    case 'ADD_FAVORITE':
-      return {...state, favorites: [...state.favorites, action.favorite]}
-  default:
-    return state
-  }
-}
-
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(salonReducer, initialState);
 
-  const getIDs = async () => {
+  const getIDs = async (searchTerms) => {
     try {
-      const searchTerm = 'q=tree'; //shuffleItems(state.terms) then use the first 2, these first two can be rendered as the title
-      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerm}`)
+      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerms}`)
       const response = await artIDSearch;
       const idResponse = await response.json()
       const shuffledIDs  = shuffleItems(idResponse.objectIDs);
@@ -84,14 +70,21 @@ const App = () => {
     <SalonContext.Provider value={[state, dispatch]}>
       <div className="App">
         <Header />
-        <Route
-          exact path="/"
-          render={() => <Wall />} />
-        <Route
-          exact path='/:artPieceID'
-          render={({ match }) => {
-            return <ArtDetails id={match.params.artPieceID} />}}
+        <Switch>
+          <Route
+            exact path="/"
+            render={() => <Wall />}
           />
+          <Route
+          exact path="/favorites"
+          render={() => <FavoriteList />}
+          />
+          <Route
+            exact path="/:artPieceID"
+            render={({ match }) => {
+              return <ArtDetails id={match.params.artPieceID} />}}
+          />
+        </Switch>
       </div>
     </SalonContext.Provider>
   );

@@ -6,9 +6,21 @@ export const shuffleItems = (array) => {
   return array.sort(() => 0.5 - Math.random());
 }
 
+export const addToFavList = (artwork, favList) => {
+  const newFavList = favList;
+  newFavList.unshift(artwork);
+  const action = { type: 'UPDATE_FAVORITE', newFavorites: newFavList}
+}
+
+export const removeFromFavList = (artwork, favList) => {
+  const newFavList = favList;
+  const artIndex = newFavList.indexOf(artwork)
+  newFavList.splice(artIndex, 1);
+  const action = { type: 'UPDATE_FAVORITE', newFavorites: newFavList}
+}
+
 export const createTerms = (array) => {
   const shuffledTerms = shuffleItems(array);
-  console.log(shuffledTerms)
   return `q=${shuffledTerms[0]}&q=${shuffledTerms[1]}`;
 }
 

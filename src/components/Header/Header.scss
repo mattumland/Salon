@@ -1,9 +1,11 @@
 @import '../../index.scss';
 
 header {
+  @include pageMargins;
+  padding: 15px 0 15px 0;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  // padding: 20px;
   border-bottom: solid black 1px;
 
   .logo-container {
@@ -23,7 +25,7 @@ header {
   h2 {
     @include headerButton;
     font-size: 20px;
-    margin-top: 22px;
+    margin-top: 19px;
     font-weight:  100;
     text-transform: none;
     padding: 0;
