@@ -30,6 +30,7 @@ const ArtDetails = ({ id }) => {
 
   return (
     <>
+      {(!singleArtwork.length) ? <h2 className='error'>Something when wrong, please click the Salon logo to return to the home page.</h2>:
       <section className="art-details">
         <img className="details-image" src={singleArtwork[0].primaryImage}
               alt={`${singleArtwork[0].title} by ${singleArtwork[0].artistDisplayName}`}/>
@@ -46,6 +47,7 @@ const ArtDetails = ({ id }) => {
             </div>
         </div>
       </section>
+      }
     </>
   )
 }
