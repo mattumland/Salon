@@ -36,7 +36,7 @@ const ArtDetails = ({ id }) => {
         <div className="details-content">
           <aside>
             <h3>"{singleArtwork[0].title}"</h3>
-            <p>c. {singleArtwork[0].objectBeginDate}-{singleArtwork[0].objectEndDate}</p>
+            <p>{singleArtwork[0].objectDate}</p>
             <p>{singleArtwork[0].artistDisplayName}</p>
             <p>{singleArtwork[0].medium}</p>
           </aside>
