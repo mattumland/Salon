@@ -1,3 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-$header-font:  'Yeseva One', cursive;
+$header-font: 'Bebas Neue', cursive;
+
+h1, h2, h3, button, .error {
+  font-family: $header-font;
+}

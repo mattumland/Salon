@@ -13,15 +13,15 @@ describe('Salon test suite', () => {
 
   it('Should display 7 artworks on the wall', () => {
     cy
-      .get('.img-container')
-      .should(($imgContainer) => {
-        expect($imgContainer).to.have.length(7)
+      .get('.wall-img')
+      .should(($wallImg) => {
+        expect($wallImg).to.have.length(7)
       })
   })
 
   it('Should show a detail page when an artwork is clicked', () => {
     cy
-      .get('.img-container:first').click()
+      .get('.wall-img:first').click()
       .get('.details-image')
       .get('h3')
       .get('p')
@@ -32,7 +32,7 @@ describe('Salon test suite', () => {
 
   it('Should toggle the favorite button when clicked', () => {
     cy
-      .get('.img-container:first').click()
+      .get('.wall-img:first').click()
       .get('.not-favorite').click()
       .get('.favorite').click()
       .get('.not-favorite')
@@ -51,7 +51,7 @@ describe('Salon test suite', () => {
 
   it('Should show favorite art on the favorites page', () => {
     cy
-      .get('.img-container:first').click()
+      .get('.wall-img:first').click()
       .get('.not-favorite').click()
       .get('[data-cy=favorites]').click()
       .url().should('include', 'favorites')
@@ -67,15 +67,15 @@ describe('Salon test suite', () => {
       .url().should('include', 'favorites')
       .get('.error').contains('No favorites have been saved.')
       .get('[data-cy=home]').click()
-      .get('.img-container')
-      .should(($imgContainer) => {
-        expect($imgContainer).to.have.length(7)
+      .get('.wall-img')
+      .should(($wallImg) => {
+        expect($wallImg).to.have.length(7)
       })
-      .get('.img-container:first').click()
+      .get('.wall-img:first').click()
       .get('[data-cy=home]').click()
-      .get('.img-container')
-      .should(($imgContainer) => {
-        expect($imgContainer).to.have.length(7)
+      .get('.wall-img')
+      .should(($wallImg) => {
+        expect($wallImg).to.have.length(7)
       })
     })
 })
@@ -92,9 +92,4 @@ describe('Error handling', () => {
     .url().should('include', 'favorites')
     .get('.error').contains('No favorites have been saved.')
   })
-
-
-  it('Should show an error message when artwork cannot be fetched'), () => {
-    cy.intercept('https://collectionapi.metmuseum.org/public/collection/v1/search')
-  }
 })
