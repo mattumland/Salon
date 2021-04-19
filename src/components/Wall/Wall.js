@@ -9,7 +9,7 @@ const Wall = () => {
   const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
       return (
         <Artwork
-          wallLocation={`div${index}`}
+          wallLocation={`div${index+1}`}
           key={artwork.objectID}
           id={artwork.objectID}
           title={artwork.title}

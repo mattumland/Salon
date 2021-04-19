@@ -24,3 +24,15 @@
   max-height: 900px;
   margin: 15px auto;
 }
+
+@media screen and (max-width: 800px) {
+  .salon-template {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+
+    max-height: 900px;
+  }
+}
