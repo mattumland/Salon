@@ -59,7 +59,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    // shuffleItems(state.searchTerms)
     getIDs(createTerms(state.searchTerms));
   }, [])
 

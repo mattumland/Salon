@@ -9,7 +9,7 @@
 
   .artwork {
     grid-area: 1 / 1 / 2 / 2;
-    max-width: 80%;
+    max-width: 95%;
   }
   .fav-img {
     width: 100%;
@@ -27,5 +27,23 @@
     &:hover {
       @include hoverButton;
     }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .fav-grid-entry {
+    font-size: 14px;
+    margin: 12px 0;
+
+    .artwork {
+      max-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .fav-grid-entry {
+    font-size: 12px;
+    margin: 8px 0;
   }
 }

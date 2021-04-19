@@ -3,9 +3,10 @@
 .fav-grid-header {
   @include pageMargins;
   @include favGrid;
+  color: #5d5d5d;
   text-align: left;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 20px;
 
   .artwork { grid-area: 1 / 1 / 2 / 2; }
@@ -23,4 +24,16 @@
 
 .error {
   @include error;
+}
+
+@media screen and (max-width: 800px) {
+  .fav-grid-header {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .fav-grid-header {
+    font-size: 11px;
+  }
 }
