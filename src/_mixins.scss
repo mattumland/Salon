@@ -1,6 +1,7 @@
 @mixin headerButton {
   background-color: black;
   color: white;
+  border: solid black 1px;
 }
 
 @mixin hoverButton {
