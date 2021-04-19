@@ -33,7 +33,6 @@ header {
     &:hover {
       @include hoverButton;
       margin: 12px 10px 0 0;
-
     }
   }
 
@@ -42,5 +41,16 @@ header {
     border: none;
     align-self: flex-end;
   }
+}
+
+@media screen and (max-width: 390px) {
+  header {
+
+    h2 {
+      font-size: 13px;
+    }
+
+  }
+
 
 }
