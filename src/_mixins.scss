@@ -11,11 +11,20 @@
 
 @mixin favGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1.5fr repeat(4, .75fr);
   grid-template-rows: 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 0px;
+
+  @media screen and (max-width: 800px) {
+    grid-column-gap: 10px;
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-column-gap: 6px;
+  }
 }
+
 
 @mixin pageMargins {
   width: 95%;

@@ -23,11 +23,11 @@ const FavoriteList = () => {
   return(
     <>
       <section className="fav-grid-header">
-        <h4 className="artwork">Artwork</h4>
-        <h4 className="title">Title</h4>
-        <h4 className="date">Date</h4>
-        <h4 className="artist">Artist</h4>
-        <h4 className="medium">Medium</h4>
+        <h3 className="artwork">Artwork</h3>
+        <h3 className="title">Title</h3>
+        <h3 className="date">Date</h3>
+        <h3 className="artist">Artist</h3>
+        <h3 className="medium">Medium</h3>
       </section>
       <section className="fav-list">
         {!favsToDisplay.length && (<p className='error'>No favorites have been saved.</p>)}

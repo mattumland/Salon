@@ -1,7 +1,3 @@
-export const getRandomIndex = (arr) => {
-  return Math.floor(Math.random() * arr.length);
-}
-
 export const shuffleItems = (array) => {
   return array.sort(() => 0.5 - Math.random());
 }
@@ -33,7 +29,6 @@ export const terms = [
   'Life',
   'Death',
   'Justice',
-  'Injustice',
   'Loss',
   'Gift',
   'Truth',
