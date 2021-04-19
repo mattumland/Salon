@@ -1,14 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SalonContext from '../../context/SalonContext';
-import { shuffleItems, terms2 } from '../../utilities';
+import { shuffleItems, terms1, terms2 } from '../../utilities';
 import './Header.scss';
 
 const Header = () => {
   const [state, dispatch] = useContext(SalonContext);
+  const [termList, updateList] = useState('terms2')
 
   const refresh = () => {
-    const newTerms = shuffleItems(terms2);
+    let newTerms = [];
+    if (termList === 'terms1') {
+      newTerms = shuffleItems(terms1);
+      updateList('terms2')
+    } else {
+      newTerms = shuffleItems(terms2);
+      updateList('terms1')
+    }
     const action = { type: 'UPDATE_TERMS', terms: newTerms};
     dispatch(action)
   }
