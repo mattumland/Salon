@@ -22,7 +22,7 @@ const App = () => {
 
   const getIDs = async (searchTerms) => {
     try {
-      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&${searchTerms}`)
+      const artIDSearch = fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&isHighlighted=true&${searchTerms}`)
       const response = await artIDSearch;
       const idResponse = await response.json()
       const shuffledIDs  = shuffleItems(idResponse.objectIDs);

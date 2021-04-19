@@ -15,13 +15,13 @@
 
 .salon-template {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 
   width: 95%;
-  max-height: 900px;
+  max-height: 500px;
   margin: 15px auto;
 }
 

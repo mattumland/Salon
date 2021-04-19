@@ -18,6 +18,3 @@ const Artwork = ({ id, url, wallLocation, title }) => {
 }
 
 export default Artwork;
-
-// className={`img-container`}
-// className={`img-container ${wallLocation}`
