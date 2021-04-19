@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
-import { shuffleItems, terms, createTerms } from '../../utilities.js';
+import { shuffleItems, terms1, createTerms } from '../../utilities.js';
 import Wall from '../Wall/Wall';
 import Header from '../Header/Header';
 import ArtDetails from '../ArtDetails/ArtDetails';
@@ -10,7 +10,7 @@ import salonReducer from '../../context/salonReducer';
 import './App.scss';
 
 const initialState = {
-  searchTerms: shuffleItems(terms),
+  searchTerms: shuffleItems(terms1),
   ids: [],
   wallDisplay: [],
   favorites: [],
@@ -48,6 +48,8 @@ const App = () => {
     }
 
   const getArtwork = async () => {
+    const action = { type: 'CLEAR_WALL', clearDisplay: []}
+    dispatch(action);
     const idSelection = state.ids.filter((id, index) => {
       if (index < 7) {
         return id;
@@ -58,9 +60,13 @@ const App = () => {
     })
   }
 
+  // useEffect(() => {
+  //   getIDs(createTerms(state.searchTerms));
+  // }, [])
+
   useEffect(() => {
     getIDs(createTerms(state.searchTerms));
-  }, [])
+  }, [state.searchTerms])
 
   useEffect(() => {
     getArtwork();
@@ -68,7 +74,7 @@ const App = () => {
 
   return (
     <SalonContext.Provider value={[state, dispatch]}>
-      <div className="App">
+      <main className="App">
         <Header />
 
         {state.error && (<p className='error' > {state.error} </p>)}
@@ -88,7 +94,7 @@ const App = () => {
               return <ArtDetails id={match.params.artPieceID} />}}
           />
         </Switch>
-      </div>
+      </main>
     </SalonContext.Provider>
   );
 }
