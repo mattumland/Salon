@@ -60,10 +60,6 @@ const App = () => {
     })
   }
 
-  // useEffect(() => {
-  //   getIDs(createTerms(state.searchTerms));
-  // }, [])
-
   useEffect(() => {
     getIDs(createTerms(state.searchTerms));
   }, [state.searchTerms])
