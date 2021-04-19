@@ -19,7 +19,7 @@ export const createTerms = (array) => {
   return `q=${array[0]}&q=${array[1]}`;
 }
 
-export const terms = [
+export const terms1 = [
   'Pain',
   'Sun',
   'Moon',
@@ -49,14 +49,41 @@ export const terms = [
   'Sorrow',
   'Grow',
   'Walk',
-  // '1100',
-  // '1200',
-  // '1300',
-  // '1400',
-  // '1500',
-  // '1600',
-  // '1700',
-  // '1800',
-  // '1900',
-  // '2000'
+]
+
+export const terms2 = [
+  'Hell',
+  'Heaven',
+  'Music',
+  'Table',
+  'Ocean',
+  'Tide',
+  'Stars',
+  'Flood',
+  'Courage',
+  'Grief',
+  'Knowledge',
+  'Fruit',
+  'Decay',
+  'Broken',
+  'Fly',
+  'Fall',
+  'Spring',
+  'Winter',
+  'Summer',
+  'Youth',
+  'Age',
+  'Horse',
+  'Time',
+  'Count',
+  '1100',
+  '1200',
+  '1300',
+  '1400',
+  '1500',
+  '1600',
+  '1700',
+  '1800',
+  '1900',
+  '2000'
 ]
