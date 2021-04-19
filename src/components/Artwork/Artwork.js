@@ -10,7 +10,6 @@ const Artwork = ({ id, url, wallLocation, title }) => {
   return (
     <section className={wallLocation}>
     <Link
-      className={`img-container`}
       to={`/${id}`}>
       <img className="wall-img" src={url} alt={title} />
     </Link>

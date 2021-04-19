@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import SalonContext from '../../context/SalonContext';
+import { shuffleItems } from '../../utilities';
 import './Header.scss';
 
 const Header = () => {
+  const [state, dispatch] = useContext(SalonContext);
 
   const refresh = () => {
     location.reload();
