@@ -3,6 +3,7 @@
 .art-details {
   @include pageMargins;
   margin-top: 15px;
+  margin-bottom: 10px;
   height: 100%;
   display: flex;
   flex-direction: row-reverse;
