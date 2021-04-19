@@ -22,24 +22,23 @@
 
 ## About the Project
 
-In this project, our team was tasked with creating a movie website where users can view a list of movies with titles and rating information. A user can click on a movie to see a page with further details, including a trailer. All of the data was provide by an API and the site is accessible and responsive on desktop, tablet and mobile views.
+In this project, our team was tasked with creating an app of our own design, using a technology that we had to teach ourselves. We chose to use React Context API for global state management to create Salon, an app which simulates the art museum experience. While many museums post their collections online, we wanted to breakdown the barrier of searching through a large database of art by generating 'psuedo-curated' displays centered around randomly selected themes. These displays are presented in a layout reminiscent of a classic salon style. Users can generate a new display with a single click, see a high resolution of image each artwork and save their favorites to a list for future viewing.
+
+The artwork was sourced by the Metropolitan Museum of Art Collection API.
+https://metmuseum.github.io/
 
 Project spec ->
-https://frontend.turing.io/projects/module-3/rancid-tomatillos-v3.html
+https://frontend.turing.edu/projects/module-3/stretch.html
 
 #### Final Product:
 ##### Home Page:
-![](src/assets/rancid-top.png)
-![](src/assets/rancid-middle.png)
-![](src/assets/rancid-bottom.png)
 
 ##### Details Page:
-![](src/assets/rancid-top.png)
-![](src/assets/rancid-bottom.png)
+
 
 ## Project Goals
-1. Gain competency with React.
-2. Create mutipage using Router.
+1. Learn React Context API through an app of our design
+2. Create multipage app using Router.
 3. Make network requests to API endpoints to retrieve and manipulate data.
 4. Use Object Oriented Programming (OOP) to drive the design of the application and the code.
 5. Create a testing using Cypress that thoroughly tests all the functional aspects of the application.
@@ -49,7 +48,7 @@ https://frontend.turing.io/projects/module-3/rancid-tomatillos-v3.html
 
 ## Installation
 View the code ->
-https://github.com/aemiers/rancid-tomatillos
+https://github.com/mattumland/Salon
 
 ## Technologies Used
 
@@ -68,9 +67,9 @@ https://github.com/aemiers/rancid-tomatillos
 - ![Cypress](https://img.shields.io/badge/cypress%20-%2317202C.svg?&style=for-the-badge&logo=cypress&logoColor=white)
 
 ## Wireframes
-Sketch was utilized to create wireframes, low fidelity, and high fidelity prototypes. We tested all user stories with our wireframes/prototypes to ensure that our designs catered to the needs of our users. Our final product and the wireframes only have one major difference, and that is the added filter functionality.
+Low fidelity wireframes allowed us to map out the user flow and create proof-of-concept images for our salon layouts. We tested all user stories with our wireframes/prototypes to ensure that our designs catered to the needs of our users.
 
-![](src/assets/HiFi-Mockup-Rancid-Tomatillos.png)
+![](assets/README-130d6eaf.png)
 
 ## Functionality
 
