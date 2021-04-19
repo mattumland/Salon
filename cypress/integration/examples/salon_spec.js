@@ -6,8 +6,9 @@ describe('Salon test suite', () => {
 
   it('Should display a fully loaded header', () => {
     cy
-      .get('h1').should('be.visible')
-      .get('h2').should('be.visible')
+      .get('[data-cy=home]').should('be.visible')
+      .get('[data-cy=favorites]').should('be.visible')
+      .get('[data-cy=refresh]').should('be.visible')
     })
 
   it('Should display 7 artworks on the wall', () => {
@@ -39,7 +40,7 @@ describe('Salon test suite', () => {
 
   it('Should show the favorites page when the header button is clicked', () => {
     cy
-      .get('h2').click()
+      .get('[data-cy=favorites]').click()
       .url().should('include', 'favorites')
       .get('.artwork')
       .get('.title')
@@ -52,7 +53,7 @@ describe('Salon test suite', () => {
     cy
       .get('.img-container:first').click()
       .get('.not-favorite').click()
-      .get('h2').click()
+      .get('[data-cy=favorites]').click()
       .url().should('include', 'favorites')
       .get('.fav-list')
       .should(($favList) => {
@@ -60,44 +61,40 @@ describe('Salon test suite', () => {
       })
   })
 
-  it('Should show the an error message on favorites page when there are no favorites', () => {
-    cy
-      .get('h2').click()
-      .url().should('include', 'favorites')
-      .get('.error').contains('No favorites have been saved.')
-    })
-
   it('Should return to the homepage from any other page by clicking the logo', () => {
     cy
-      .get('h2').click()
+      .get('[data-cy=favorites]').click()
       .url().should('include', 'favorites')
       .get('.error').contains('No favorites have been saved.')
-      .get('h1').click()
+      .get('[data-cy=home]').click()
       .get('.img-container')
       .should(($imgContainer) => {
         expect($imgContainer).to.have.length(7)
       })
       .get('.img-container:first').click()
-      .get('h1').click()
+      .get('[data-cy=home]').click()
       .get('.img-container')
       .should(($imgContainer) => {
         expect($imgContainer).to.have.length(7)
       })
     })
-
 })
 
+describe('Error handling', () => {
 
-/*
-happy path
-  header loaded
-  7 pieces of art load
-  can click on art to see details
-  can click on favorites to add
-  can click header button to view favorites
-  can click on salon button to return home
+  beforeEach(() => {
+    cy.visit('http://localhost:3000');
+  })
 
-sad path
-  error message on fav page without favs
+  it('Should show the an error message on favorites page when there are no favorites', () => {
+    cy
+    .get('[data-cy=favorites]').click()
+    .url().should('include', 'favorites')
+    .get('.error').contains('No favorites have been saved.')
+  })
 
-*/
+
+  it('Should show an error message when artwork cannot be fetched'), () => {
+    cy.intercept('https://collectionapi.metmuseum.org/public/collection/v1/search')
+  }
+})

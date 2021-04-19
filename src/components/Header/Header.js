@@ -12,13 +12,13 @@ const Header = () => {
     <header>
       <Link
         to='/'>
-        <button className="logo-container"><h1>Salon</h1></button>
+        <button data-cy='home' className="logo-container"><h1>Salon</h1></button>
       </Link>
       <section className="user-buttons">
-        <button onClick={refresh}><h2>see a new wall</h2></button>
+        <button data-cy='refresh' onClick={refresh}><h2>see a new wall</h2></button>
         <Link
           to='/favorites'>
-          <button><h2>favorites</h2></button>
+          <button data-cy='favorites' ><h2>favorites</h2></button>
         </Link>
       </section>
     </header>
