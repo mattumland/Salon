@@ -65,7 +65,7 @@ aside > p {
   @include error;
 }
 
-@media only screen and (max-width: 1050px) {
+@media screen and (max-width: 1050px) {
   .art-details {
     max-width: 100%;
     flex-direction: column;
@@ -73,20 +73,24 @@ aside > p {
   }
 
   .details-image {
-    max-width: 90%;
+    max-width: 95%;
     width: auto;
     margin-bottom: 20px;
     margin-left: 0;
   }
 
+  .details-content {
+    width: 95%;
+  }
+
   aside {
-    width: 77%;
+    width: 85%;
     font-size: 2vh;
     margin: 0 auto;
   }
 
   .fav-box {
-    width: 77%;
+    width: 85%;
     margin: 5px auto;
   }
 }
