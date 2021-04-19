@@ -21,7 +21,7 @@ const Wall = () => {
   return (
       <>
         {(state.wallDisplay.length < 7) && (
-          <p className='loading'> Your display is being curated. </p>
+          <h3 className='loading'> Your display is being curated. </h3>
         )}
 
         <h2 className='display-terms'>{`${state.searchTerms[0]} & ${state.searchTerms[1]}`} </h2>
