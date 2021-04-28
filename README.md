@@ -76,9 +76,15 @@ Salon received a 100% from Lighthouse on Accessibility. Users can tab throughout
 ![](assets/README-2c1f217b.png)
 
 ## Contact the Contributers
-[<img src="https://img.shields.io/badge/LinkedIn-matt--umland-informational?style=for-the-badge&labelColor=black&logo=linkedin&logoColor=0077b5&&color=0FBBD6"/>][linkedin2]
-[<img src="https://img.shields.io/badge/Github-mattumland-informational?style=for-the-badge&labelColor=black&logo=github&color=8B0BD5"/>][github2]
 
-<!-- Personal Definitions  -->
-[linkedin2]: https://www.linkedin.com/in/matt-umland-he-him-4264455b/
-[github2]: https://github.com/mattumland
+Matt Umland
+LinkedIn: https://www.linkedin.com/in/matt-umland-he-him-4264455b/
+LinkedIn: https://github.com/mattumland
+
+Reggie Thompson
+LinkedIn: https://www.linkedin.com/in/reggie-thompson-136979
+LinkedIn: https://github.com/rdtho2525
+
+Charles Morris
+LinkedIn: https://www.linkedin.com/in/chuck-morris-56819918/
+LinkedIn: https://github.com/percworld
