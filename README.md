@@ -77,14 +77,14 @@ Salon received a 100% from Lighthouse on Accessibility. Users can tab throughout
 
 ## Contact the Contributers
 
-####Matt Umland  
+#### Matt Umland  
 LinkedIn: https://www.linkedin.com/in/matt-umland-he-him-4264455b/  
 github: https://github.com/mattumland
 
-####Reggie Thompson  
+#### Reggie Thompson  
 LinkedIn: https://www.linkedin.com/in/reggie-thompson-136979  
 github: https://github.com/rdtho2525  
 
-#Charles Morris  
+#### Charles Morris  
 LinkedIn: https://www.linkedin.com/in/chuck-morris-56819918/  
 github: https://github.com/percworld  
