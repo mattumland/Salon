@@ -46,6 +46,7 @@
     "sass": "^1.32.8",
     "start-server-and-test": "^1.12.1"
   },
+  ...
   "optionalDependencies": {
     "fsevents": "*"
   }
