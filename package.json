@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "start-server-and-test start http://localhost:3000 cypress",
     "eject": "react-scripts eject",
-    "cypress": "cypress open",
+    "cypress": "cypress run",
     "sass": "sass src/Sass:src/Css --watch --no-source-map"
   },
   "eslintConfig": {
