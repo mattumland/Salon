@@ -47,6 +47,6 @@
     "start-server-and-test": "^1.12.1"
   },
   "optionalDependencies": {
-    "fsevents": "^2.3.2"
+    "fsevents": "*"
   }
-}   
+}
