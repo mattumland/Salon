@@ -7,6 +7,7 @@ const Wall = () => {
   const [state, dispatch] = useContext(SalonContext);
 
   const artworkToDisplay = state.wallDisplay.map((artwork, index) => {
+    if (artwork.primaryImageSmall) {
       return (
         <Artwork
           wallLocation={`div${index+1}`}
@@ -16,6 +17,7 @@ const Wall = () => {
           url={artwork.primaryImageSmall}
         />
       )
+    }
   })
 
   return (
