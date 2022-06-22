@@ -22,7 +22,7 @@ const Wall = () => {
 
   return (
       <>
-        {(state.wallDisplay.length < 7) && (
+        {(state.wallDisplay.length < artworkToDisplay.length) && (
           <h3 className='loading'> Your display is being curated. </h3>
         )}
 
