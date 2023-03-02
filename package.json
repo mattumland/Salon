@@ -2,6 +2,7 @@
   "name": "salon",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mattumland.github.io/salon",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
@@ -21,7 +22,9 @@
     "test": "start-server-and-test start http://localhost:3000 cypress",
     "eject": "react-scripts eject",
     "cypress": "cypress run",
-    "sass": "sass src/Sass:src/Css --watch --no-source-map"
+    "sass": "sass src/Sass:src/Css --watch --no-source-map",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +46,7 @@
   },
   "devDependencies": {
     "cypress": "^7.0.1",
+    "gh-pages": "^5.0.0",
     "sass": "^1.32.8",
     "start-server-and-test": "^1.12.1"
   },
