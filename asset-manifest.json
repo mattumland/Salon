@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/salon/static/css/main.57190070.chunk.css",
+    "main.js": "/salon/static/js/main.ae725086.chunk.js",
+    "main.js.map": "/salon/static/js/main.ae725086.chunk.js.map",
+    "runtime-main.js": "/salon/static/js/runtime-main.688e3fb6.js",
+    "runtime-main.js.map": "/salon/static/js/runtime-main.688e3fb6.js.map",
+    "static/js/2.873bfc6d.chunk.js": "/salon/static/js/2.873bfc6d.chunk.js",
+    "static/js/2.873bfc6d.chunk.js.map": "/salon/static/js/2.873bfc6d.chunk.js.map",
+    "index.html": "/salon/index.html",
+    "static/css/main.57190070.chunk.css.map": "/salon/static/css/main.57190070.chunk.css.map",
+    "static/js/2.873bfc6d.chunk.js.LICENSE.txt": "/salon/static/js/2.873bfc6d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.688e3fb6.js",
+    "static/js/2.873bfc6d.chunk.js",
+    "static/css/main.57190070.chunk.css",
+    "static/js/main.ae725086.chunk.js"
+  ]
+}
